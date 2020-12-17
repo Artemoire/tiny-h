@@ -1,9 +1,11 @@
-const h = (E, P, ...C) => {
-    const t = (T) => document.createTextNode(T)
-    const N = document.createElement(E)
-    Object.keys(P || {}).filter(k => Object.hasOwnProperty.call(P, k)).forEach(k => N.setAttribute(k, P[k]))
-    C.forEach(c => N.appendChild(typeof c == "string" ? t(c) : c))    
-    return N
+const h = (tag, props, ...children) => {
+    const t = (text) => document.createTextNode(text);
+    const node = document.createElement(tag);
+    Object.keys(props || {})
+        .filter(key => Object.hasOwnProperty.call(props, key))
+        .forEach(key => node.setAttribute(key, props[key]));
+    children.forEach(child => node.appendChild(typeof child == "string" ? t(child) : child));
+    return node;
 }
-const H = (E, ...C) => h(E, void 0, ...C)
-const mount = (N) => document.body.appendChild(N)
+const H = (tag, ...children) => h(tag, {}, ...children);
+const mount = (node) => document.body.appendChild(node);
